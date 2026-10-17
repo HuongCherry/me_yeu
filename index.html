@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lời Chúc Tròn Đầy 🤍</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: radial-gradient(circle at center, #fffbfa 0%, #fbebe8 60%, #f8dfdc 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cursive-title {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .serif-text {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Perspective for 3D Envelope Animation */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        /* 3D Envelope Flap Rotation */
+        .flap-top {
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .envelope-open .flap-top {
+            transform: rotateX(180deg);
+            z-index: 10;
+        }
+
+        /* Beating Heart Pulse Animation */
+        @keyframes heartPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(225, 29, 72, 0.3);
+            }
+            50% {
+                transform: scale(1.15);
+                box-shadow: 0 8px 25px rgba(225, 29, 72, 0.5);
+            }
+        }
+
+        .heart-seal {
+            animation: heartPulse 2s infinite ease-in-out;
+        }
+
+        /* Letter Modal Slide Out & Scale Animation */
+        .letter-slide {
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+        }
+
+        .letter-slide.active {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* Slow, Gentle, Swaying Falling Petals */
+        @keyframes gentleSway {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) translateX(0px);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.85;
+            }
+            50% {
+                transform: translateY(55vh) rotate(180deg) translateX(35px);
+            }
+            85% {
+                opacity: 0.85;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg) translateX(-25px);
+                opacity: 0;
+            }
+        }
+
+        .falling-petal {
+            position: absolute;
+            top: -5%;
+            pointer-events: none;
+            user-select: none;
+            z-index: 1;
+            will-change: transform, opacity;
+            animation: gentleSway linear infinite;
+        }
+
+        /* Elegant Custom Shadow */
+        .soft-shadow {
+            box-shadow: 0 20px 50px -10px rgba(180, 140, 140, 0.22), 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="relative flex items-center justify-center min-h-screen p-4 overflow-hidden select-none">
+
+    <!-- Background Falling Petals Container -->
+    <div id="petalContainer" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Main Envelope Wrapper -->
+    <div class="relative z-10 w-full max-w-md flex flex-col items-center justify-center">
+
+        <!-- Interactive White Envelope -->
+        <div id="envelopeContainer" 
+             onclick="openEnvelope()" 
+             class="perspective-1000 cursor-pointer group flex flex-col items-center justify-center transition-transform duration-300 hover:scale-[1.03] active:scale-95">
+            
+            <!-- Envelope Body -->
+            <div id="envelope" class="relative w-80 h-52 sm:w-96 sm:h-60 bg-white rounded-b-2xl soft-shadow flex items-end justify-center border-b-2 border-rose-100/80">
+                
+                <!-- Envelope Flap (Top Triangle) -->
+                <div class="flap-top absolute top-0 left-0 right-0 h-0 border-l-[160px] sm:border-l-[192px] border-l-transparent border-r-[160px] sm:border-r-[192px] border-r-transparent border-t-[115px] sm:border-t-[132px] border-t-slate-50 z-30 drop-shadow-sm origin-top"></div>
+
+                <!-- Inner Pocket Background -->
+                <div class="absolute inset-0 bg-stone-100 rounded-b-2xl z-10 border-t border-rose-100/50"></div>
+
+                <!-- Side Folding Triangular Overlays -->
+                <div class="absolute bottom-0 left-0 w-0 h-0 border-b-[195px] sm:border-b-[225px] border-b-white border-r-[160px] sm:border-r-[192px] border-r-transparent z-20 rounded-bl-2xl"></div>
+                <div class="absolute bottom-0 right-0 w-0 h-0 border-b-[195px] sm:border-b-[225px] border-b-white border-l-[160px] sm:border-l-[192px] border-l-transparent z-20 rounded-br-2xl"></div>
+
+                <!-- Beating Red Heart Seal in the Center -->
+                <div class="heart-seal absolute z-40 top-1/2 -translate-y-1/2 bg-gradient-to-tr from-rose-600 to-rose-400 w-13 h-13 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer transition-transform group-hover:scale-110">
+                    <span class="text-white text-2xl sm:text-3xl filter drop-shadow">❤️</span>
+                </div>
+
+                <!-- Bottom Rose Gradient Border -->
+                <div class="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-rose-300 to-transparent z-20 opacity-80"></div>
+            </div>
+
+            <!-- Click Prompt -->
+            <button class="mt-8 px-6 py-2.5 rounded-full bg-white/80 hover:bg-white text-rose-600 font-semibold text-xs sm:text-sm tracking-wider uppercase shadow-sm border border-rose-200/60 transition-all duration-300 animate-pulse flex items-center gap-2">
+                <span>✨</span> Chạm để mở <span>✨</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Letter Popup Modal (Centered Alignment & Formatting Fixed) -->
+    <div id="letterCard" 
+         class="letter-slide fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-sm sm:max-w-md bg-white/95 backdrop-blur-md px-6 py-8 sm:px-10 sm:py-10 rounded-3xl soft-shadow border border-rose-100 text-center opacity-0 pointer-events-none z-50 flex flex-col items-center justify-center">
+        
+        <!-- Top Floral Accent -->
+        <div class="text-2xl sm:text-3xl mb-3 text-rose-400/90 tracking-widest text-center w-full">🌸 ✨ 🌸</div>
+
+        <!-- Perfectly Centered Title -->
+        <h1 class="cursive-title text-3xl sm:text-4xl font-bold text-rose-600 mb-4 text-center w-full leading-snug">
+            Gửi Mẹ Yêu
+        </h1>
+
+        <!-- Perfectly Centered Message Paragraphs -->
+        <div class="w-full space-y-4 text-slate-700 leading-relaxed text-sm sm:text-base font-normal text-center flex flex-col items-center justify-center">
+            <p class="serif-text italic text-black text-center max-w-xs sm:max-w-sm">
+                Mẹ yêu ơi, con có thể đi khắp thế gian nhưng không đâu bằng được vòng tay và mái nhà của mẹ. Nhân ngày Phụ nữ Việt Nam 20/10, con muốn cảm ơn mẹ vì đã sinh ra con và nuôi dưỡng con nên người. Con mong mẹ sống thật lâu để mãi ở bên chúng con"
+            </p>
+            <p class="text-rose-500 font-medium text-sm sm:text-base text-center max-w-xs sm:max-w-sm">
+                 Con yêu mẹ rất nhiều! 💖
+            </p>
+        </div>
+
+        <!-- Center Rose Divider -->
+        <div class="my-5 flex items-center justify-center space-x-3 opacity-60 w-full">
+            <span class="h-px w-10 bg-rose-300"></span>
+            <span class="text-rose-400 text-xs">🌹</span>
+            <span class="h-px w-10 bg-rose-300"></span>
+        </div>
+
+        <!-- Fold Back Button -->
+        <button onclick="closeLetter()" 
+                class="bg-rose-50 hover:bg-rose-100 text-rose-600 font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-full transition-all duration-300 border border-rose-200/80 shadow-sm cursor-pointer active:scale-95">
+            Gấp thư lại ✉️
+        </button>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        let isOpened = false;
+
+        // Function to open envelope and present letter modal
+        function openEnvelope() {
+            if (isOpened) return;
+            isOpened = true;
+
+            const envelopeContainer = document.getElementById('envelopeContainer');
+            const envelope = document.getElementById('envelope');
+            const letterCard = document.getElementById('letterCard');
+
+            // 1. Open Envelope Top Flap
+            envelope.classList.add('envelope-open');
+
+            // 2. Hide envelope container smoothly
+            setTimeout(() => {
+                envelopeContainer.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                envelopeContainer.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+                
+                // 3. Show letter card
+                setTimeout(() => {
+                    letterCard.classList.remove('pointer-events-none');
+                    letterCard.classList.add('active');
+                }, 300);
+            }, 600);
+        }
+
+        // Function to fold letter back to envelope view
+        function closeLetter() {
+            const envelopeContainer = document.getElementById('envelopeContainer');
+            const envelope = document.getElementById('envelope');
+            const letterCard = document.getElementById('letterCard');
+
+            // Hide letter card
+            letterCard.classList.remove('active');
+            letterCard.classList.add('pointer-events-none');
+
+            // Restore envelope container
+            setTimeout(() => {
+                envelopeContainer.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+                envelope.classList.remove('envelope-open');
+                isOpened = false;
+            }, 400);
+        }
+
+        // Slow & Gentle Flower Falling Effect
+        function startGentlePetalFall() {
+            const container = document.getElementById('petalContainer');
+            const petals = ['🌸', '🌷', '🌺', '💖', '✨'];
+
+            function createPetal() {
+                const petal = document.createElement('div');
+                petal.classList.add('falling-petal');
+                petal.innerHTML = petals[Math.floor(Math.random() * petals.length)];
+
+                // Random horizontal position across viewport
+                petal.style.left = Math.random() * 100 + 'vw';
+
+                // Slow duration: 8 to 14 seconds
+                const duration = Math.random() * 6 + 8;
+                petal.style.animationDuration = duration + 's';
+
+                // Random sizing & soft opacity
+                const size = Math.random() * 10 + 16; // 16px to 26px
+                petal.style.fontSize = size + 'px';
+                petal.style.opacity = (Math.random() * 0.4 + 0.45).toString();
+
+                container.appendChild(petal);
+
+                // Auto remove after animation ends
+                setTimeout(() => {
+                    petal.remove();
+                }, duration * 1000);
+            }
+
+            // Generate initial batch
+            for (let i = 0; i < 5; i++) {
+                setTimeout(createPetal, Math.random() * 2000);
+            }
+
+            // Spawn continuous new petals slowly
+            setInterval(createPetal, 1100);
+        }
+
+        // Initialize animation on load
+        window.addEventListener('DOMContentLoaded', () => {
+            startGentlePetalFall();
+        });
+    </script>
+</body>
+</html>
